@@ -1,0 +1,17 @@
+# Compiled class files
+*.class
+
+# Output directory
+/out/
+
+# VS Code settings
+.vscode/
+
+# Logs and temp
+*.log
+*.tmp
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
