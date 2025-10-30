@@ -3,10 +3,23 @@ package core.primitives.operations;
 import core.primitives.AbstractFunction;
 import core.primitives.PRFunction;
 
+/**
+ * Operador de composición: dada {@code outer} de aridad m y un array de funciones
+ * {@code inners} de longitud m y aridad n, construye una función de aridad n que mapea
+ * x⃗ ↦ outer( inners[0](x⃗), ..., inners[m-1](x⃗) ).
+ *
+ * Requisitos: todas las inners deben tener la misma aridad n; {@code outer.arity() == inners.length}.
+ */
 public class Composition extends AbstractFunction {
   private final PRFunction outer;
   private final PRFunction[] inners;  
 
+  /**
+   * Crea la composición de {@code outer} con {@code inners}.
+   * @param outer función externa (de aridad m)
+   * @param inners funciones internas (longitud m), cada una de aridad n
+   * @throws IllegalArgumentException si hay nulls o si las aridades no son coherentes
+   */
   public Composition(PRFunction outer, PRFunction[] inners) {
     super(determineArity(inners));
     if (outer == null || inners == null) throw new IllegalArgumentException("null function");
@@ -24,7 +37,6 @@ public class Composition extends AbstractFunction {
 
   @Override
   public int apply(int... args) {
-    tick();
     int n = arity;
     if (args.length != n) {
       throw new IllegalArgumentException("Composition: expected " + n + " args, got " + args.length);
